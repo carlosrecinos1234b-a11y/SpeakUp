@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>SpeakUp</title>
+  <style> 
+    /* Aquí va todo tu CSS */
+  </style>
+<body>
+  <h1>Bienvenido a SpeakUp</h1>
+  <p>Aprende inglés de forma fácil.</p>
+
+  <div class="cuadro-bienvenida">Entrar</div>
+
+  <div class="fondo-botones" id="opciones" style="display:none;">
+    <div class="opciones-container">
+      <button class="opcion" onclick="mostrar('formal')">Inglés Formal</button>
+      <button class="opcion" onclick="mostrar('informal')">Inglés Informal</button>
+      <button class="opcion" onclick="mostrar('ia')">Clases con tutor de IA</button>
+    </div>
+  </div>
+
+  <div id="contenido">
+    <div id="formal" class="contenido-opcion" style="display:none;">Contenido de Inglés Formal...</div>
+    <div id="informal" class="contenido-opcion" style="display:none;">Contenido de Inglés Informal...</div>
+    <div id="ia" class="contenido-opcion" style="display:none;">Contenido de Clases con tutor de IA...</div>
+  </div>
+
+  <script>
+    document.querySelector('.cuadro-bienvenida').addEventListener('click', () => {
+      document.getElementById('opciones').style.display = 'flex';
+      document.querySelector('.cuadro-bienvenida').style.display = 'none';
+    });
+
+    function mostrar(opcion) {
+      const secciones = document.querySelectorAll('.contenido-opcion');
+      secciones.forEach(seccion => seccion.style.display = 'none');
+      document.getElementById(opcion).style.display = 'block';
+    }
+  </script>
+</body>
+  <!-- Aquí van tus elementos HTML -->
+</body>
+<!-- Botón principal animado -->
+<div class="cuadro-bienvenida">Entrar</div>
+
+<!-- Opciones ocultas inicialmente -->
+<div class="fondo-botones" style="display:none;" id="opciones">
+  <div class="opciones-container">
+    <button class="opcion" onclick="mostrar('formal')">Inglés Formal</button>
+    <button class="opcion" onclick="mostrar('informal')">Inglés Informal</button>
+    <button class="opcion" onclick="mostrar('ia')">Clases con tutor de IA</button>
+  </div>
+</div>
+
+<!-- Contenido dinámico -->
+<div id="contenido">
+  <div id="formal" class="contenido-opcion" style="display:none;">Contenido de Inglés Formal...</div>
+  <div id="informal" class="contenido-opcion" style="display:none;">Contenido de Inglés Informal...</div>
+  <div id="ia" class="contenido-opcion" style="display:none;">Contenido de Clases con tutor de IA...</div>
+</div>
+<script>
+  // Mostrar opciones al hacer clic en "Entrar"
+  document.querySelector('.cuadro-bienvenida').addEventListener('click', () => {
+    document.getElementById('opciones').style.display = 'flex';
+    document.querySelector('.cuadro-bienvenida').style.display = 'none';
+  });
+
+  // Mostrar contenido según la opción seleccionada
+  function mostrar(opcion) {
+    const secciones = document.querySelectorAll('.contenido-opcion');
+    secciones.forEach(seccion => seccion.style.display = 'none');
+    document.getElementById(opcion).style.display = 'block';
+  }
+</script>
+</html>
