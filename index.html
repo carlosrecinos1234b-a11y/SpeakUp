@@ -2,233 +2,221 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>SpeakUp</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Montserrat', sans-serif;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Montserrat',sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
-body {
-  background: linear-gradient(135deg, #0f172a, #1e293b);
-  color: white;
-  min-height: 100vh;
+body{
+  background: linear-gradient(135deg,#0f172a,#1e293b);
+  color:white;
+  min-height:100vh;
 }
 
-/* Hamburguesa */
-.menu {
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  font-size: 28px;
-  cursor: pointer;
-  z-index: 10;
+.menu{
+  position:fixed;
+  top:15px;
+  left:15px;
+  font-size:28px;
+  cursor:pointer;
+  z-index:10;
 }
 
-.config {
-  display: none;
-  position: fixed;
-  top: 60px;
-  left: 15px;
-  background: #111827;
-  padding: 15px;
-  border-radius: 10px;
+.config{
+  display:none;
+  position:fixed;
+  top:60px;
+  left:15px;
+  background:#111827;
+  padding:15px;
+  border-radius:10px;
 }
 
-/* Bienvenida */
-#welcome {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+#welcome{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
   animation: fadeIn 1s;
 }
 
-#welcome h1 {
-  font-size: 3rem;
+#welcome.exit{
+  animation: fadeOut 0.6s forwards;
 }
 
-#welcome p {
-  margin-top: 15px;
-  font-size: 1.3rem;
-  opacity: 0.8;
+#welcome h1{font-size:3rem;}
+#welcome p{margin-top:15px;font-size:1.4rem;opacity:0.8;}
+#welcome button{
+  margin-top:30px;
+  padding:15px 40px;
+  border:none;
+  border-radius:30px;
+  font-size:1.1rem;
+  cursor:pointer;
+  background:#38bdf8;
+  color:#0f172a;
 }
 
-#welcome button {
-  margin-top: 30px;
-  padding: 15px 40px;
-  border: none;
-  border-radius: 30px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  background: #38bdf8;
-  color: #0f172a;
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(0.9);}
+  to{opacity:1;transform:scale(1);}
+}
+@keyframes fadeOut{
+  to{opacity:0;transform:scale(1.1);}
 }
 
-@keyframes fadeIn {
-  from {opacity:0; transform: scale(0.9);}
-  to {opacity:1; transform: scale(1);}
-}
-
-/* Menú principal */
-#opciones {
-  display: none;
-  padding: 40px;
-  text-align: center;
-}
-
-.card {
-  background: #1f2933;
-  margin: 20px auto;
-  padding: 25px;
-  border-radius: 20px;
-  max-width: 300px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.card:hover {
-  transform: scale(1.05);
-  background: #38bdf8;
-  color: #0f172a;
-}
-
-/* Inglés formal */
-#formal {
-  display: none;
-  padding: 20px;
+#opciones{
+  display:none;
+  padding:40px;
+  text-align:center;
   animation: fadeIn 0.5s;
 }
 
-.level {
-  background: #1f2933;
-  margin: 15px 0;
-  padding: 20px;
-  border-radius: 15px;
-  cursor: pointer;
+.card{
+  background:#1f2933;
+  margin:20px auto;
+  padding:25px;
+  border-radius:20px;
+  max-width:300px;
+  cursor:pointer;
+  transition:0.3s;
+}
+.card:hover{
+  transform:scale(1.05);
+  background:#38bdf8;
+  color:#0f172a;
 }
 
-/* Contenido niveles */
-.content {
-  display: none;
-  margin-top: 15px;
-  background: #020617;
-  padding: 15px;
-  border-radius: 10px;
+#formal,#grammar{
+  display:none;
+  padding:20px;
+  animation: fadeIn 0.5s;
 }
 
-/* Botón volver */
-.back {
-  margin-top: 20px;
-  background: #38bdf8;
-  color: #000;
-  border: none;
-  padding: 10px 25px;
-  border-radius: 20px;
+.level{
+  background:#1f2933;
+  margin:15px 0;
+  padding:20px;
+  border-radius:15px;
+  cursor:pointer;
 }
+
+.back{
+  margin-top:20px;
+  background:#38bdf8;
+  color:#000;
+  border:none;
+  padding:10px 25px;
+  border-radius:20px;
+}
+
+button{margin:5px;padding:10px 15px;border-radius:10px;border:none;}
 </style>
 </head>
 <body>
 
 <div class="menu" onclick="toggleConfig()">☰</div>
-<div class="config" id="config">
-  🌍 Configuración (próximamente)
-</div>
+<div class="config" id="config">🌍 Configuración (próximamente)</div>
 
-<!-- Bienvenida -->
 <div id="welcome">
   <h1>SpeakUp</h1>
   <p>Tu voz. Tu inglés. Tu futuro.</p>
   <button onclick="enterApp()">Entrar</button>
 </div>
 
-<!-- Opciones -->
 <div id="opciones">
   <h2>Elige una opción</h2>
   <div class="card" onclick="openFormal()">Inglés Formal</div>
-  <div class="card">Inglés Informal</div>
-  <div class="card">Tutor con IA</div>
+  <div class="card">Inglés Informal (Próximamente)</div>
+  <div class="card">Tutor con IA (Próximamente)</div>
 </div>
 
-<!-- Inglés Formal -->
 <div id="formal">
   <h2>Inglés Formal</h2>
-
-  <div class="level" onclick="toggleLevel('basic')">
-    Principiante
-    <div class="content" id="basic">
-      <p><b>Saludos formales:</b></p>
-      <ul>
-        <li>Hello</li>
-        <li>Good morning</li>
-        <li>How do you do?</li>
-      </ul>
-      <p><b>Gramática:</b></p>
-      <p>I am / You are / He is</p>
-    </div>
-  </div>
-
-  <div class="level" onclick="toggleLevel('inter')">
-    Intermedio
-    <div class="content" id="inter">
-      <p><b>Expresiones:</b></p>
-      <ul>
-        <li>I would like to...</li>
-        <li>Could you please...</li>
-      </ul>
-      <p><b>Gramática:</b></p>
-      <p>Present Perfect: I have done</p>
-    </div>
-  </div>
-
-  <div class="level" onclick="toggleLevel('pro')">
-    Profesional
-    <div class="content" id="pro">
-      <p><b>Formal avanzado:</b></p>
-      <ul>
-        <li>I am writing to inform you...</li>
-        <li>Please find attached...</li>
-      </ul>
-      <p><b>Gramática:</b></p>
-      <p>Passive voice: The report was sent.</p>
-    </div>
-  </div>
-
+  <div class="level" onclick="openGrammar()">Principiante</div>
+  <div class="level">Intermedio (Próximamente)</div>
+  <div class="level">Profesional (Próximamente)</div>
   <button class="back" onclick="goBack()">Volver</button>
+</div>
+
+<div id="grammar">
+  <h2>Gramática - Principiante</h2>
+
+  <div class="level">
+    <p><b>1. Choose the correct formal sentence:</b></p>
+    <button onclick="check1('a')">What's up?</button>
+    <button onclick="check1('b')">How are you doing?</button>
+    <button onclick="check1('c')">How do you do?</button>
+    <p id="r1"></p>
+  </div>
+
+  <div class="level">
+    <p><b>2. Complete:</b> I ___ like to request more info.</p>
+    <button onclick="check2('a')">have</button>
+    <button onclick="check2('b')">would</button>
+    <button onclick="check2('c')">want</button>
+    <p id="r2"></p>
+  </div>
+
+  <div class="level">
+    <p><b>3. "Can you send me that?" is formal.</b></p>
+    <button onclick="check3(true)">True</button>
+    <button onclick="check3(false)">False</button>
+    <p id="r3"></p>
+  </div>
+
+  <button class="back" onclick="goBackToFormal()">Volver</button>
 </div>
 
 <script>
 function enterApp(){
-  document.getElementById("welcome").style.display="none";
-  document.getElementById("opciones").style.display="block";
+  let w=document.getElementById("welcome");
+  w.classList.add("exit");
+  setTimeout(()=>{
+    w.style.display="none";
+    document.getElementById("opciones").style.display="block";
+  },600);
 }
-
 function openFormal(){
   document.getElementById("opciones").style.display="none";
   document.getElementById("formal").style.display="block";
 }
-
 function goBack(){
   document.getElementById("formal").style.display="none";
   document.getElementById("opciones").style.display="block";
 }
-
-function toggleLevel(id){
-  let el = document.getElementById(id);
-  el.style.display = el.style.display === "block" ? "none" : "block";
+function openGrammar(){
+  document.getElementById("formal").style.display="none";
+  document.getElementById("grammar").style.display="block";
 }
-
+function goBackToFormal(){
+  document.getElementById("grammar").style.display="none";
+  document.getElementById("formal").style.display="block";
+}
 function toggleConfig(){
-  let c = document.getElementById("config");
-  c.style.display = c.style.display === "block" ? "none" : "block";
+  let c=document.getElementById("config");
+  c.style.display=c.style.display==="block"?"none":"block";
+}
+function check1(o){
+  document.getElementById("r1").innerHTML=o==='c'?"✅ Correct":"❌ Incorrect";
+}
+function check2(o){
+  document.getElementById("r2").innerHTML=o==='b'?"✅ Correct":"❌ Try again";
+}
+function check3(v){
+  document.getElementById("r3").innerHTML=v===false?"✅ Correct":"❌ Incorrect";
 }
 </script>
 
