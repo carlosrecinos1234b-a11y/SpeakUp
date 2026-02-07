@@ -30,17 +30,60 @@ body{
 #welcome.exit{
   animation: fadeOut 0.6s forwards;
 }
-#welcome h1{font-size:3rem;}
-#welcome p{margin-top:15px;font-size:1.4rem;opacity:0.8;}
-#welcome button{
+#welcome h1{
+  font-size:3rem;
+}
+#welcome p.lema{
+  margin-top:5px;
+  font-size:1.2rem;
+  opacity:0.8;
+}
+#welcome .subtitulo{
+  font-size:1.2rem;
+  margin-bottom:10px;
+  opacity:0.9;
+}
+#login-container{
   margin-top:30px;
-  padding:15px 40px;
+  background:#374151; /* cuadro gris */
+  padding:25px;
+  border-radius:20px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+#login-container button{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:12px 25px;
   border:none;
-  border-radius:30px;
-  font-size:1.1rem;
+  border-radius:25px;
+  font-weight:600;
   cursor:pointer;
-  background:#38bdf8;
-  color:#0f172a;
+  font-family:'Montserrat',sans-serif;
+  font-size:1rem;
+  margin-top:10px;
+  width:220px;
+}
+#login-container button.google{
+  background:#1e40af;
+  color:white;
+}
+#login-container button.guest{
+  background:#6b7280;
+  color:white;
+}
+#user-info{
+  margin-top:15px;
+  text-align:center;
+}
+#user-info img{
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  margin-top:10px;
 }
 @keyframes fadeIn{
   from{opacity:0;transform:scale(0.9);}
@@ -94,31 +137,21 @@ body{
 <body>
 
 <div id="welcome">
+  <p class="subtitulo">Bienvenido a</p>
   <h1>SpeakUp</h1>
-  <p>Habla. Exprésate. Mejora tu inglés.</p>
-  <button onclick="enterApp()">Entrar</button>
-</div>
-<div id="login-container" style="margin-top:40px; text-align:center;">
+  <p class="lema">Habla. Exprésate. Mejora tu inglés.</p>
 
-  <!-- Botón Google azul marinado -->
-  <button onclick="loginGoogle()" 
-          style="display:flex; align-items:center; justify-content:center; gap:10px;
-                 padding:12px 25px; border:none; border-radius:25px;
-                 background:#1e40af; color:white; font-weight:600; cursor:pointer;
-                 font-family:'Montserrat',sans-serif; font-size:1rem;">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-         alt="Google G" style="width:22px; height:22px;">
-    Iniciar con Google
-  </button>
-
-  <!-- Botón Invitado -->
-  <button onclick="loginGuest()" 
-          style="margin-top:15px; padding:12px 25px; border:none; border-radius:25px;
-                 background:#6b7280; color:white; font-weight:600; cursor:pointer;
-                 font-family:'Montserrat',sans-serif; font-size:1rem;">
-    Iniciar como invitado
-  </button>
-
+  <div id="login-container">
+    <button class="google" onclick="loginGoogle()">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="G">
+      Iniciar con Google
+    </button>
+    <button class="guest" onclick="loginGuest()">Iniciar como invitado</button>
+    <div id="user-info">
+      <p id="user"></p>
+      <img id="user-photo" src="" alt="" style="display:none;">
+    </div>
+  </div>
 </div>
 
 <div id="opciones">
@@ -154,35 +187,34 @@ function goBack(){
   document.getElementById("opciones").style.display="block";
 }
 </script>
-<!-- Firebase v9 compat para HTML sin módulos -->
+
+<!-- Firebase compat -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-
 <script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyBNlsM6pNNMaHdDKP5wzE_v9Fh61h1faTY",
-    authDomain: "login-a790f.firebaseapp.com",
-    projectId: "login-a790f",
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyBNlsM6pNNMaHdDKP5wzE_v9Fh61h1faTY",
+  authDomain: "login-a790f.firebaseapp.com",
+  projectId: "login-a790f",
+};
+const app = firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const provider = new firebase.auth.GoogleAuthProvider();
 
-  const app = firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const provider = new firebase.auth.GoogleAuthProvider();
+function loginGoogle(){
+  auth.signInWithPopup(provider)
+    .then(result=>{
+      document.getElementById("user").innerText = result.user.displayName;
+      document.getElementById("user-photo").src = result.user.photoURL;
+      document.getElementById("user-photo").style.display="block";
+      enterApp();
+    })
+    .catch(error=>console.error(error));
+}
 
-  // Función para iniciar Google Login
-  function loginGoogle() {
-    auth.signInWithPopup(provider)
-      .then(result => {
-        document.getElementById("user").innerText = "Hola, " + result.user.displayName;
-        enterApp();   // llama a tu función existente para entrar al menú
-      })
-      .catch(error => console.error(error));
-  }
-
-  // Función para iniciar como invitado
-  function loginGuest() {
-    enterApp();     // llama a tu función existente para entrar al menú
-  }
+function loginGuest(){
+  enterApp();
+}
 </script>
 
 </body>
