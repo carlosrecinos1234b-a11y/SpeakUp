@@ -117,11 +117,44 @@ input{
 <body>
 
 <div class="menu" onclick="toggleConfig()">☰</div>
-<div class="config" id="config">🌍 Configuración (próximamente)</div>
+
+<div class="config-panel" id="config">
+  <h3>⚙️ Configuración</h3>
+
+  <div class="config-item">
+    <span>Idioma</span>
+    <select onchange="changeLanguage(this.value)">
+      <option value="es">Español</option>
+      <option value="en">English</option>
+    </select>
+  </div>
+
+  <div class="config-item">
+    <span>Sonido</span>
+    <input type="checkbox" checked onchange="toggleSound(this)">
+  </div>
+
+  <div class="config-item">
+    <span>Tamaño de texto</span>
+    <select onchange="changeTextSize(this.value)">
+      <option value="normal">Normal</option>
+      <option value="big">Grande</option>
+    </select>
+  </div>
+
+  <div class="config-item">
+    <span>Modo claro</span>
+    <input type="checkbox" onchange="toggleTheme(this)">
+  </div>
+
+  <div class="config-item disabled">
+     Tutor IA (Próximamente)
+  </div>
+</div>
 
 <div id="welcome">
   <h1>SpeakUp</h1>
-  <p>Habla. Exprésate. Mejora tu inglés.</p>
+  <p>Habla,Exprésate, Mejora tu inglés.</p>
   <button onclick="enterApp()">Entrar</button>
 </div>
 
