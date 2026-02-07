@@ -4,37 +4,51 @@
   <meta charset="UTF-8">
   <title>SpeakUp</title>
 
-  <!-- ===== CSS (ESTILOS) ===== -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f2f2f2;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #4CAF50, #2e7d32);
       text-align: center;
       margin: 0;
       padding: 0;
+      min-height: 100vh;
+      color: white;
     }
 
     h1 {
       margin-top: 40px;
+      font-size: 2.2rem;
     }
 
-    /* Botón principal */
+    p {
+      opacity: 0.9;
+    }
+
+    /* BOTÓN ENTRAR */
     .cuadro-bienvenida {
-      width: 220px;
-      margin: 60px auto;
-      padding: 20px;
-      background: #4CAF50;
-      color: white;
-      font-size: 24px;
-      border-radius: 12px;
+      width: 240px;
+      margin: 80px auto;
+      padding: 22px;
+      background: white;
+      color: #2e7d32;
+      font-size: 26px;
+      border-radius: 16px;
       cursor: pointer;
       animation: aparecer 1s ease;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+    }
+
+    .cuadro-bienvenida:hover {
+      transform: scale(1.05);
     }
 
     @keyframes aparecer {
       from {
         opacity: 0;
-        transform: translateY(-40px);
+        transform: translateY(-60px);
       }
       to {
         opacity: 1;
@@ -42,75 +56,134 @@
       }
     }
 
-    /* Caja de opciones */
+    @keyframes salir {
+      from {
+        opacity: 1;
+        transform: scale(1);
+      }
+      to {
+        opacity: 0;
+        transform: scale(0.7);
+      }
+    }
+
+    /* CAJA OPCIONES */
     .fondo-botones {
       background: white;
-      padding: 40px;
-      border-radius: 16px;
-      width: 300px;
+      padding: 35px 25px;
+      border-radius: 24px;
+      width: 90%;
+      max-width: 360px;
       margin: 40px auto;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.35);
       display: none;
+      animation: aparecer 0.8s ease;
+      color: #333;
     }
 
     .opcion {
       width: 100%;
-      padding: 15px;
-      margin: 15px 0;
+      padding: 18px;
+      margin: 16px 0;
       font-size: 18px;
       border: none;
-      border-radius: 10px;
-      background: #4CAF50;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #4CAF50, #2e7d32);
       color: white;
       cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .opcion:hover {
-      background: #45a049;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.3);
     }
 
+    /* CONTENIDO */
     .contenido-opcion {
-      margin-top: 30px;
-      font-size: 20px;
+      margin: 30px auto;
+      width: 90%;
+      max-width: 400px;
+      background: white;
+      color: #333;
+      padding: 25px;
+      border-radius: 20px;
       display: none;
+      animation: aparecer 0.6s ease;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    }
+
+    .contenido-opcion h2 {
+      margin-top: 0;
+      color: #2e7d32;
+    }
+
+    /* RESPONSIVE EXTRA */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      .cuadro-bienvenida {
+        font-size: 22px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- ===== HTML (CONTENIDO) ===== -->
+  <h1>SpeakUp</h1>
+  <p>Aprende inglés de forma inteligente</p>
 
-  <h1>Bienvenido a SpeakUp</h1>
-  <p>Elige cómo quieres aprender inglés</p>
-
-  <div class="cuadro-bienvenida" onclick="entrar()">
+  <div class="cuadro-bienvenida" id="entrarBtn" onclick="entrar()">
     Entrar
   </div>
 
   <div class="fondo-botones" id="opciones">
-    <button class="opcion" onclick="mostrar('formal')">Inglés Formal</button>
-    <button class="opcion" onclick="mostrar('informal')">Inglés Informal</button>
-    <button class="opcion" onclick="mostrar('ia')">Tutor con IA</button>
+    <button class="opcion" onclick="mostrar('formal')">
+      Inglés Formal 💼
+    </button>
+    <button class="opcion" onclick="mostrar('informal')">
+      Inglés Informal 😎
+    </button>
+    <button class="opcion" onclick="mostrar('ia')">
+      Tutor con IA 🤖
+    </button>
   </div>
 
   <div id="formal" class="contenido-opcion">
-    Aquí irá el contenido de Inglés Formal.
+    <h2>Inglés Formal</h2>
+    <p>
+      Aprende inglés profesional para trabajo, correos,
+      entrevistas, negocios y estudios.
+    </p>
   </div>
 
   <div id="informal" class="contenido-opcion">
-    Aquí irá el contenido de Inglés Informal.
+    <h2>Inglés Informal</h2>
+    <p>
+      Inglés real para hablar con amigos, viajes,
+      redes sociales y vida diaria.
+    </p>
   </div>
 
   <div id="ia" class="contenido-opcion">
-    Aquí irá el contenido del Tutor con IA.
+    <h2>Tutor con IA</h2>
+    <p>
+      Practica con un tutor inteligente que te corrige,
+      te explica y conversa contigo.
+    </p>
   </div>
 
-  <!-- ===== JAVASCRIPT (LÓGICA) ===== -->
   <script>
     function entrar() {
-      document.querySelector('.cuadro-bienvenida').style.display = "none";
-      document.getElementById('opciones').style.display = "block";
+      const btn = document.getElementById('entrarBtn');
+      btn.style.animation = "salir 0.6s forwards";
+
+      setTimeout(() => {
+        btn.style.display = "none";
+        document.getElementById('opciones').style.display = "block";
+      }, 600);
     }
 
     function mostrar(tipo) {
