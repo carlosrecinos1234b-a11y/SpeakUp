@@ -195,14 +195,6 @@ body{
 </div>
 
 <script>
-function enterApp(){
-  let w=document.getElementById("welcome");
-  w.classList.add("exit");
-  setTimeout(()=>{
-    w.style.display="none";
-    document.getElementById("opciones").style.display="block";
-  },600);
-}
 function openFormal(){
   document.getElementById("opciones").style.display="none";
   document.getElementById("formal").style.display="block";
@@ -247,6 +239,29 @@ function loginGoogle(){
 
 function loginGuest(){
   enterApp();
+}
+
+// Detecta si ya hay sesión activa
+auth.onAuthStateChanged(user => {
+  if(user){
+    document.getElementById("user").innerText = user.displayName;
+    const photoElem = document.getElementById("user-photo");
+    photoElem.src = user.photoURL;
+    photoElem.style.display="block";
+    document.getElementById("user-info").classList.add("show");
+    enterApp();
+  } else {
+    document.getElementById("login-container").style.display="flex";
+  }
+});
+
+function enterApp(){
+  let w=document.getElementById("welcome");
+  w.classList.add("exit");
+  setTimeout(()=>{
+    w.style.display="none";
+    document.getElementById("opciones").style.display="block";
+  },600);
 }
 </script>
 
