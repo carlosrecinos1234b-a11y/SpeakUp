@@ -1,199 +1,236 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>SpeakUp</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SpeakUp</title>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(135deg, #4CAF50, #2e7d32);
-      text-align: center;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      color: white;
-    }
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
 
-    h1 {
-      margin-top: 40px;
-      font-size: 2.2rem;
-    }
+body {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: white;
+  min-height: 100vh;
+}
 
-    p {
-      opacity: 0.9;
-    }
+/* Hamburguesa */
+.menu {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 10;
+}
 
-    /* BOTÓN ENTRAR */
-    .cuadro-bienvenida {
-      width: 240px;
-      margin: 80px auto;
-      padding: 22px;
-      background: white;
-      color: #2e7d32;
-      font-size: 26px;
-      border-radius: 16px;
-      cursor: pointer;
-      animation: aparecer 1s ease;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-      transition: transform 0.3s;
-    }
+.config {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: 15px;
+  background: #111827;
+  padding: 15px;
+  border-radius: 10px;
+}
 
-    .cuadro-bienvenida:hover {
-      transform: scale(1.05);
-    }
+/* Bienvenida */
+#welcome {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  animation: fadeIn 1s;
+}
 
-    @keyframes aparecer {
-      from {
-        opacity: 0;
-        transform: translateY(-60px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+#welcome h1 {
+  font-size: 3rem;
+}
 
-    @keyframes salir {
-      from {
-        opacity: 1;
-        transform: scale(1);
-      }
-      to {
-        opacity: 0;
-        transform: scale(0.7);
-      }
-    }
+#welcome p {
+  margin-top: 15px;
+  font-size: 1.3rem;
+  opacity: 0.8;
+}
 
-    /* CAJA OPCIONES */
-    .fondo-botones {
-      background: white;
-      padding: 35px 25px;
-      border-radius: 24px;
-      width: 90%;
-      max-width: 360px;
-      margin: 40px auto;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.35);
-      display: none;
-      animation: aparecer 0.8s ease;
-      color: #333;
-    }
+#welcome button {
+  margin-top: 30px;
+  padding: 15px 40px;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  background: #38bdf8;
+  color: #0f172a;
+}
 
-    .opcion {
-      width: 100%;
-      padding: 18px;
-      margin: 16px 0;
-      font-size: 18px;
-      border: none;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #4CAF50, #2e7d32);
-      color: white;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
+@keyframes fadeIn {
+  from {opacity:0; transform: scale(0.9);}
+  to {opacity:1; transform: scale(1);}
+}
 
-    .opcion:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 15px rgba(0,0,0,0.3);
-    }
+/* Menú principal */
+#opciones {
+  display: none;
+  padding: 40px;
+  text-align: center;
+}
 
-    /* CONTENIDO */
-    .contenido-opcion {
-      margin: 30px auto;
-      width: 90%;
-      max-width: 400px;
-      background: white;
-      color: #333;
-      padding: 25px;
-      border-radius: 20px;
-      display: none;
-      animation: aparecer 0.6s ease;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-    }
+.card {
+  background: #1f2933;
+  margin: 20px auto;
+  padding: 25px;
+  border-radius: 20px;
+  max-width: 300px;
+  cursor: pointer;
+  transition: 0.3s;
+}
 
-    .contenido-opcion h2 {
-      margin-top: 0;
-      color: #2e7d32;
-    }
+.card:hover {
+  transform: scale(1.05);
+  background: #38bdf8;
+  color: #0f172a;
+}
 
-    /* RESPONSIVE EXTRA */
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 1.8rem;
-      }
-      .cuadro-bienvenida {
-        font-size: 22px;
-      }
-    }
-  </style>
+/* Inglés formal */
+#formal {
+  display: none;
+  padding: 20px;
+  animation: fadeIn 0.5s;
+}
+
+.level {
+  background: #1f2933;
+  margin: 15px 0;
+  padding: 20px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+/* Contenido niveles */
+.content {
+  display: none;
+  margin-top: 15px;
+  background: #020617;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+/* Botón volver */
+.back {
+  margin-top: 20px;
+  background: #38bdf8;
+  color: #000;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 20px;
+}
+</style>
 </head>
-
 <body>
 
+<div class="menu" onclick="toggleConfig()">☰</div>
+<div class="config" id="config">
+  🌍 Configuración (próximamente)
+</div>
+
+<!-- Bienvenida -->
+<div id="welcome">
   <h1>SpeakUp</h1>
-  <p>Aprende inglés de forma inteligente</p>
+  <p>Tu voz. Tu inglés. Tu futuro.</p>
+  <button onclick="enterApp()">Entrar</button>
+</div>
 
-  <div class="cuadro-bienvenida" id="entrarBtn" onclick="entrar()">
-    Entrar
+<!-- Opciones -->
+<div id="opciones">
+  <h2>Elige una opción</h2>
+  <div class="card" onclick="openFormal()">Inglés Formal</div>
+  <div class="card">Inglés Informal</div>
+  <div class="card">Tutor con IA</div>
+</div>
+
+<!-- Inglés Formal -->
+<div id="formal">
+  <h2>Inglés Formal</h2>
+
+  <div class="level" onclick="toggleLevel('basic')">
+    Principiante
+    <div class="content" id="basic">
+      <p><b>Saludos formales:</b></p>
+      <ul>
+        <li>Hello</li>
+        <li>Good morning</li>
+        <li>How do you do?</li>
+      </ul>
+      <p><b>Gramática:</b></p>
+      <p>I am / You are / He is</p>
+    </div>
   </div>
 
-  <div class="fondo-botones" id="opciones">
-    <button class="opcion" onclick="mostrar('formal')">
-      Inglés Formal 💼
-    </button>
-    <button class="opcion" onclick="mostrar('informal')">
-      Inglés Informal 😎
-    </button>
-    <button class="opcion" onclick="mostrar('ia')">
-      Tutor con IA 🤖
-    </button>
+  <div class="level" onclick="toggleLevel('inter')">
+    Intermedio
+    <div class="content" id="inter">
+      <p><b>Expresiones:</b></p>
+      <ul>
+        <li>I would like to...</li>
+        <li>Could you please...</li>
+      </ul>
+      <p><b>Gramática:</b></p>
+      <p>Present Perfect: I have done</p>
+    </div>
   </div>
 
-  <div id="formal" class="contenido-opcion">
-    <h2>Inglés Formal</h2>
-    <p>
-      Aprende inglés profesional para trabajo, correos,
-      entrevistas, negocios y estudios.
-    </p>
+  <div class="level" onclick="toggleLevel('pro')">
+    Profesional
+    <div class="content" id="pro">
+      <p><b>Formal avanzado:</b></p>
+      <ul>
+        <li>I am writing to inform you...</li>
+        <li>Please find attached...</li>
+      </ul>
+      <p><b>Gramática:</b></p>
+      <p>Passive voice: The report was sent.</p>
+    </div>
   </div>
 
-  <div id="informal" class="contenido-opcion">
-    <h2>Inglés Informal</h2>
-    <p>
-      Inglés real para hablar con amigos, viajes,
-      redes sociales y vida diaria.
-    </p>
-  </div>
+  <button class="back" onclick="goBack()">Volver</button>
+</div>
 
-  <div id="ia" class="contenido-opcion">
-    <h2>Tutor con IA</h2>
-    <p>
-      Practica con un tutor inteligente que te corrige,
-      te explica y conversa contigo.
-    </p>
-  </div>
+<script>
+function enterApp(){
+  document.getElementById("welcome").style.display="none";
+  document.getElementById("opciones").style.display="block";
+}
 
-  <script>
-    function entrar() {
-      const btn = document.getElementById('entrarBtn');
-      btn.style.animation = "salir 0.6s forwards";
+function openFormal(){
+  document.getElementById("opciones").style.display="none";
+  document.getElementById("formal").style.display="block";
+}
 
-      setTimeout(() => {
-        btn.style.display = "none";
-        document.getElementById('opciones').style.display = "block";
-      }, 600);
-    }
+function goBack(){
+  document.getElementById("formal").style.display="none";
+  document.getElementById("opciones").style.display="block";
+}
 
-    function mostrar(tipo) {
-      document.getElementById('formal').style.display = "none";
-      document.getElementById('informal').style.display = "none";
-      document.getElementById('ia').style.display = "none";
+function toggleLevel(id){
+  let el = document.getElementById(id);
+  el.style.display = el.style.display === "block" ? "none" : "block";
+}
 
-      document.getElementById(tipo).style.display = "block";
-    }
-  </script>
+function toggleConfig(){
+  let c = document.getElementById("config");
+  c.style.display = c.style.display === "block" ? "none" : "block";
+}
+</script>
 
 </body>
 </html>
