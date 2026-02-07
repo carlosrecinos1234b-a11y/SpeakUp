@@ -2,158 +2,34 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SpeakUp</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Montserrat',sans-serif;
-  -webkit-tap-highlight-color: transparent;
-}
-body{
-  background: linear-gradient(135deg,#0f172a,#1e293b);
-  color:white;
-  min-height:100vh;
-}
-.menu{
-  position:fixed;
-  top:15px;
-  right:15px;
-  font-size:28px;
-  cursor:pointer;
-  z-index:10;
-}
-.config{
-  display:none;
-  position:fixed;
-  top:60px;
-  right:15px;
-  background:#111827;
-  padding:15px;
-  border-radius:10px;
-}
-#welcome{
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  animation: fadeIn 1s;
-}
-#welcome.exit{
-  animation: fadeOut 0.6s forwards;
-}
-#welcome h1{
-  font-size:3rem;
-}
-#welcome p.subtitulo{
-  font-size:3rem;
-  margin-bottom:5px;
-  opacity:0.9;
-}
-#welcome p.lema{
-  margin-top:5px;
-  font-size:1.4rem;
-  opacity:0.8;
-}
-#login-container{
-  margin-top:30px;
-  background:#374151;
-  padding:25px;
-  border-radius:20px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
-#login-container button{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  padding:12px 25px;
-  border:none;
-  border-radius:25px;
-  font-weight:600;
-  cursor:pointer;
-  font-family:'Montserrat',sans-serif;
-  font-size:1rem;
-  margin-top:10px;
-  width:220px;
-}
-#login-container button.google{
-  background:#1e40af;
-  color:white;
-}
-#login-container button.guest{
-  background:#6b7280;
-  color:white;
-}
-#user-info{
-  margin-top:15px;
-  text-align:center;
-  opacity:0;
-  transition: opacity 0.5s;
-}
-#user-info.show{
-  opacity:1;
-}
-#user-info img{
-  width:50px;
-  height:50px;
-  border-radius:50%;
-  margin-top:10px;
-}
-@keyframes fadeIn{
-  from{opacity:0;transform:scale(0.9);}
-  to{opacity:1;transform:scale(1);}
-}
-@keyframes fadeOut{
-  to{opacity:0;transform:scale(1.1);}
-}
-#opciones{
-  display:none;
-  padding:40px;
-  text-align:center;
-  animation: fadeIn 0.5s;
-}
-.card{
-  background:#1f2933;
-  margin:20px auto;
-  padding:25px;
-  border-radius:20px;
-  max-width:300px;
-  cursor:pointer;
-  transition:0.3s;
-}
-.card:hover{
-  transform:scale(1.05);
-  background:#38bdf8;
-  color:#0f172a;
-}
-#formal{
-  display:none;
-  padding:20px;
-  animation: fadeIn 0.5s;
-}
-.level{
-  background:#1f2933;
-  margin:15px 0;
-  padding:20px;
-  border-radius:15px;
-  cursor:pointer;
-}
-.back{
-  margin-top:20px;
-  background:#38bdf8;
-  color:#000;
-  border:none;
-  padding:10px 25px;
-  border-radius:20px;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Montserrat',sans-serif;-webkit-tap-highlight-color: transparent;}
+body{background: linear-gradient(135deg,#0f172a,#1e293b); color:white; min-height:100vh;}
+.menu{position:fixed;top:15px;right:15px;font-size:28px;cursor:pointer;z-index:10;}
+.config{display:none;position:fixed;top:60px;right:15px;background:#111827;padding:15px;border-radius:10px;}
+#welcome{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;animation: fadeIn 1s;}
+#welcome.exit{animation: fadeOut 0.6s forwards;}
+#welcome h1{font-size:3rem;}
+#welcome p.subtitulo{font-size:3rem;margin-bottom:5px;opacity:0.9;}
+#welcome p.lema{margin-top:5px;font-size:1.4rem;opacity:0.8;}
+#login-container{margin-top:30px;background:#374151;padding:25px;border-radius:20px;display:flex;flex-direction:column;align-items:center;}
+#login-container button{display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 25px;border:none;border-radius:25px;font-weight:600;cursor:pointer;font-family:'Montserrat',sans-serif;font-size:1rem;margin-top:10px;width:220px;}
+#login-container button.google{background:#1e3a8a;color:white;}
+#login-container button.guest{background:#6b7280;color:white;}
+#user-info{margin-top:15px;text-align:center;opacity:0;transition: opacity 0.5s;}
+#user-info.show{opacity:1;}
+#user-info img{width:50px;height:50px;border-radius:50%;margin-top:10px;}
+@keyframes fadeIn{from{opacity:0;transform:scale(0.9);}to{opacity:1;transform:scale(1);}}
+@keyframes fadeOut{to{opacity:0;transform:scale(1.1);}}
+#opciones{display:none;padding:40px;text-align:center;animation: fadeIn 0.5s;}
+.card{background:#1f2933;margin:20px auto;padding:25px;border-radius:20px;max-width:300px;cursor:pointer;transition:0.3s;}
+.card:hover{transform:scale(1.05);background:#38bdf8;color:#0f172a;}
+#formal{display:none;padding:20px;animation: fadeIn 0.5s;}
+.level{background:#1f2933;margin:15px 0;padding:20px;border-radius:15px;cursor:pointer;}
+.back{margin-top:20px;background:#38bdf8;color:#000;border:none;padding:10px 25px;border-radius:20px;}
 </style>
 </head>
 <body>
@@ -168,7 +44,7 @@ body{
 
   <div id="login-container">
     <button class="google" onclick="loginGoogle()">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="G">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="G" width="20">
       Iniciar con Google
     </button>
     <button class="guest" onclick="loginGuest()">Iniciar como invitado</button>
