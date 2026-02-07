@@ -4,9 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>SpeakUp</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
-
 <style>
 *{
   margin:0;
@@ -16,32 +14,28 @@
   -webkit-tap-highlight-color: transparent;
   user-select: none;
 }
-
 body{
   background: linear-gradient(135deg,#0f172a,#1e293b);
   color:white;
   min-height:100vh;
 }
-
 .menu{
   position:fixed;
   top:15px;
-  left:15px;
+  right:15px;
   font-size:28px;
   cursor:pointer;
   z-index:10;
 }
-
 .config{
   display:none;
   position:fixed;
   top:60px;
-  left:15px;
+  right:15px;
   background:#111827;
   padding:15px;
   border-radius:10px;
 }
-
 #welcome{
   height:100vh;
   display:flex;
@@ -51,16 +45,24 @@ body{
   text-align:center;
   animation: fadeIn 1s;
 }
-
+#welcome::before{
+  content:"";
+  position:absolute;
+  width:200px;
+  height:200px;
+  background:#38bdf8;
+  border-radius:50%;
+  filter:blur(120px);
+  opacity:0.4;
+}
 #welcome.exit{
   animation: fadeOut 0.6s forwards;
 }
-
-#welcome h1{font-size:3rem;}
-#welcome p{margin-top:15px;font-size:1.4rem;opacity:0.8;}
+#welcome h1{font-size:3.5rem;}
+#welcome p{margin-top:15px;font-size:1.5rem;opacity:0.85;}
 #welcome button{
-  margin-top:30px;
-  padding:15px 40px;
+  margin-top:35px;
+  padding:15px 45px;
   border:none;
   border-radius:30px;
   font-size:1.1rem;
@@ -68,7 +70,6 @@ body{
   background:#38bdf8;
   color:#0f172a;
 }
-
 @keyframes fadeIn{
   from{opacity:0;transform:scale(0.9);}
   to{opacity:1;transform:scale(1);}
@@ -76,14 +77,12 @@ body{
 @keyframes fadeOut{
   to{opacity:0;transform:scale(1.1);}
 }
-
 #opciones{
   display:none;
   padding:40px;
   text-align:center;
   animation: fadeIn 0.5s;
 }
-
 .card{
   background:#1f2933;
   margin:20px auto;
@@ -98,13 +97,11 @@ body{
   background:#38bdf8;
   color:#0f172a;
 }
-
 #formal,#grammar{
   display:none;
   padding:20px;
   animation: fadeIn 0.5s;
 }
-
 .level{
   background:#1f2933;
   margin:15px 0;
@@ -112,7 +109,6 @@ body{
   border-radius:15px;
   cursor:pointer;
 }
-
 .back{
   margin-top:20px;
   background:#38bdf8;
@@ -121,7 +117,26 @@ body{
   padding:10px 25px;
   border-radius:20px;
 }
-
+.option.selected{
+  background:#ef4444 !important;
+  color:white;
+}
+.voice-box{
+  background:#111827;
+  padding:20px;
+  border-radius:15px;
+  margin-top:20px;
+  text-align:center;
+}
+.voice-box button{
+  margin-top:15px;
+  padding:10px 20px;
+  border-radius:12px;
+  border:none;
+}
+.result{
+  margin-top:10px;
+}
 button{margin:5px;padding:10px 15px;border-radius:10px;border:none;}
 </style>
 </head>
@@ -155,26 +170,25 @@ button{margin:5px;padding:10px 15px;border-radius:10px;border:none;}
   <h2>Gramática - Principiante</h2>
 
   <div class="level">
-    <p><b>1. Choose the correct formal sentence:</b></p>
-    <button onclick="check1('a')">What's up?</button>
-    <button onclick="check1('b')">How are you doing?</button>
-    <button onclick="check1('c')">How do you do?</button>
-    <p id="r1"></p>
+    <p><b>1. Choose the most formal greeting:</b></p>
+    <button class="option" onclick="selectOption(this)">Hi bro!</button>
+    <button class="option" onclick="selectOption(this)">Hey!</button>
+    <button class="option" onclick="selectOption(this)">Good morning, sir.</button>
   </div>
 
   <div class="level">
-    <p><b>2. Complete:</b> I ___ like to request more info.</p>
-    <button onclick="check2('a')">have</button>
-    <button onclick="check2('b')">would</button>
-    <button onclick="check2('c')">want</button>
-    <p id="r2"></p>
+    <p><b>2. Complete the sentence:</b></p>
+    <p>I ___ like to ask a question.</p>
+    <button class="option" onclick="selectOption(this)">want</button>
+    <button class="option" onclick="selectOption(this)">would</button>
+    <button class="option" onclick="selectOption(this)">go</button>
   </div>
 
-  <div class="level">
-    <p><b>3. "Can you send me that?" is formal.</b></p>
-    <button onclick="check3(true)">True</button>
-    <button onclick="check3(false)">False</button>
-    <p id="r3"></p>
+  <div class="voice-box">
+    <p><b>3. Pronuncia esta frase:</b></p>
+    <p class="sentence">I am learning English</p>
+    <button id="startBtn">🎤 Hablar</button>
+    <p class="result" id="resultText"></p>
   </div>
 
   <button class="back" onclick="goBackToFormal()">Volver</button>
@@ -209,16 +223,28 @@ function toggleConfig(){
   let c=document.getElementById("config");
   c.style.display=c.style.display==="block"?"none":"block";
 }
-function check1(o){
-  document.getElementById("r1").innerHTML=o==='c'?"✅ Correct":"❌ Incorrect";
+function selectOption(btn){
+  btn.classList.add("selected");
+  btn.onclick=null;
 }
-function check2(o){
-  document.getElementById("r2").innerHTML=o==='b'?"✅ Correct":"❌ Try again";
-}
-function check3(v){
-  document.getElementById("r3").innerHTML=v===false?"✅ Correct":"❌ Incorrect";
-}
-</script>
 
+/* VOZ */
+const startBtn = document.getElementById("startBtn");
+const resultText = document.getElementById("resultText");
+const correctSentence = "i am learning english";
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
+recognition.lang = "en-US";
+
+startBtn.onclick = () => {
+  recognition.start();
+  resultText.textContent = "Escuchando...";
+};
+
+recognition.onresult = (event) => {
+  const userVoice = event.results[0][0].transcript.toLowerCase();
+  resultText.textContent = "Dijiste: " + userVoice;
+};
+</script>
 </body>
 </html>
