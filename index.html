@@ -2,54 +2,101 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>SpeakUp</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Montserrat',sans-serif;-webkit-tap-highlight-color: transparent;}
-body{background: linear-gradient(135deg,#0f172a,#1e293b); color:white; min-height:100vh;}
-#welcome{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;animation: fadeIn 1s;}
-#welcome.exit{animation: fadeOut 0.6s forwards;}
-#welcome h1{font-size:3rem;margin-bottom:0;}
-#welcome p.subtitulo{font-size:2rem;margin-bottom:5px;opacity:0.9;}
-#welcome p.lema{margin-top:5px;font-size:1.4rem;opacity:0.8;}
-#login-container{margin-top:30px;background:#374151;padding:30px 40px;border-radius:25px;display:flex;flex-direction:column;align-items:center;gap:15px;transition:0.5s;}
-#login-container button{display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 25px;border:none;border-radius:25px;font-weight:600;cursor:pointer;font-family:'Montserrat',sans-serif;font-size:1rem;width:220px;transition:0.3s;}
-#login-container button.google{background:#1e3a8a;color:white;}
-#login-container button.google:hover{background:#374785;}
-#login-container button.guest{background:#6b7280;color:white;}
-#login-container button.guest:hover{background:#4b5563;}
-#user-info{margin-top:15px;text-align:center;opacity:0;transform:translateY(-20px);transition: opacity 0.5s, transform 0.5s;}
-#user-info.show{opacity:1;transform:translateY(0);}
-#user-info img{width:60px;height:60px;border-radius:50%;margin-top:10px;border:2px solid white;}
-@keyframes fadeIn{from{opacity:0;transform:scale(0.9);}to{opacity:1;transform:scale(1);}}
-@keyframes fadeOut{to{opacity:0;transform:scale(1.1);}}
-#opciones{display:none;padding:40px;text-align:center;animation: fadeIn 0.5s;}
-.card{background:#1f2933;margin:20px auto;padding:25px;border-radius:20px;max-width:300px;cursor:pointer;transition:0.3s;}
-.card:hover{transform:scale(1.05);background:#38bdf8;color:#0f172a;}
-#formal{display:none;padding:20px;animation: fadeIn 0.5s;}
-.level{background:#1f2933;margin:15px 0;padding:20px;border-radius:15px;cursor:pointer;}
-.back{margin-top:20px;background:#38bdf8;color:#000;border:none;padding:10px 25px;border-radius:20px;}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Montserrat',sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+body{
+  background: linear-gradient(135deg,#0f172a,#1e293b);
+  color:white;
+  min-height:100vh;
+}
+#welcome{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  animation: fadeIn 1s;
+}
+#welcome.exit{
+  animation: fadeOut 0.6s forwards;
+}
+#welcome h1{font-size:3rem;}
+#welcome p{margin-top:15px;font-size:1.4rem;opacity:0.8;}
+#welcome button{
+  margin-top:30px;
+  padding:15px 40px;
+  border:none;
+  border-radius:30px;
+  font-size:1.1rem;
+  cursor:pointer;
+  background:#38bdf8;
+  color:#0f172a;
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(0.9);}
+  to{opacity:1;transform:scale(1);}
+}
+@keyframes fadeOut{
+  to{opacity:0;transform:scale(1.1);}
+}
+#opciones{
+  display:none;
+  padding:40px;
+  text-align:center;
+  animation: fadeIn 0.5s;
+}
+.card{
+  background:#1f2933;
+  margin:20px auto;
+  padding:25px;
+  border-radius:20px;
+  max-width:300px;
+  cursor:pointer;
+  transition:0.3s;
+}
+.card:hover{
+  transform:scale(1.05);
+  background:#38bdf8;
+  color:#0f172a;
+}
+#formal{
+  display:none;
+  padding:20px;
+  animation: fadeIn 0.5s;
+}
+.level{
+  background:#1f2933;
+  margin:15px 0;
+  padding:20px;
+  border-radius:15px;
+  cursor:pointer;
+}
+.back{
+  margin-top:20px;
+  background:#38bdf8;
+  color:#000;
+  border:none;
+  padding:10px 25px;
+  border-radius:20px;
+}
 </style>
 </head>
 <body>
 
 <div id="welcome">
-  <p class="subtitulo">Bienvenido a</p>
   <h1>SpeakUp</h1>
-  <p class="lema">Habla, Exprésate, Mejora tu inglés</p>
-
-  <div id="login-container">
-    <button class="google" id="googleSignIn">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="G" width="20">
-      Iniciar con Google
-    </button>
-    <button class="guest" onclick="loginGuest()">Iniciar como invitado</button>
-    <div id="user-info">
-      <p id="user"></p>
-      <img id="user-photo" src="" alt="">
-    </div>
-  </div>
+  <p>Habla. Exprésate. Mejora tu inglés.</p>
+  <button onclick="enterApp()">Entrar</button>
 </div>
 
 <div id="opciones">
@@ -61,58 +108,29 @@ body{background: linear-gradient(135deg,#0f172a,#1e293b); color:white; min-heigh
 
 <div id="formal">
   <h2>Inglés Formal</h2>
-  <div class="level" onclick="alert('Principiante seleccionado')">Principiante</div>
-  <div class="level" onclick="alert('Intermedio próximamente')">Intermedio (Próximamente)</div>
-  <div class="level" onclick="alert('Profesional próximamente')">Profesional (Próximamente)</div>
+  <div class="level">Principiante (Próximamente)</div>
+  <div class="level">Intermedio (Próximamente)</div>
+  <div class="level">Profesional (Próximamente)</div>
   <button class="back" onclick="goBack()">Volver</button>
 </div>
 
 <script>
-function openFormal(){document.getElementById("opciones").style.display="none";document.getElementById("formal").style.display="block";}
-function goBack(){document.getElementById("formal").style.display="none";document.getElementById("opciones").style.display="block";}
-function loginGuest(){enterApp();}
-function enterApp(){let w=document.getElementById("welcome"); w.classList.add("exit"); setTimeout(()=>{w.style.display="none";document.getElementById("opciones").style.display="block";},600);}
-</script>
-
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyBNlsM6pNNMaHdDKP5wzE_v9Fh61h1faTY",
-  authDomain: "login-a790f.firebaseapp.com",
-  projectId: "login-a790f",
-};
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const provider = new firebase.auth.GoogleAuthProvider();
-
-document.getElementById("googleSignIn").addEventListener("click", () => {
-  auth.signInWithPopup(provider)
-    .then(result => {
-      const userName = result.user.displayName;
-      const userPhoto = result.user.photoURL;
-      document.getElementById("user").innerText = userName;
-      const photoElem = document.getElementById("user-photo");
-      photoElem.src = userPhoto;
-      photoElem.style.display = "block";
-      document.getElementById("user-info").classList.add("show");
-      enterApp();
-    })
-    .catch(error => console.error(error));
-});
-
-// Mantener sesión activa
-auth.onAuthStateChanged(user => {
-  if(user){
-    document.getElementById("user").innerText = user.displayName;
-    const photoElem = document.getElementById("user-photo");
-    photoElem.src = user.photoURL;
-    photoElem.style.display = "block";
-    document.getElementById("user-info").classList.add("show");
-    enterApp();
-  }
-});
+function enterApp(){
+  let w=document.getElementById("welcome");
+  w.classList.add("exit");
+  setTimeout(()=>{
+    w.style.display="none";
+    document.getElementById("opciones").style.display="block";
+  },600);
+}
+function openFormal(){
+  document.getElementById("opciones").style.display="none";
+  document.getElementById("formal").style.display="block";
+}
+function goBack(){
+  document.getElementById("formal").style.display="none";
+  document.getElementById("opciones").style.display="block";
+}
 </script>
 
 </body>
