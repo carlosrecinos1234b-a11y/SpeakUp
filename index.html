@@ -12,13 +12,32 @@
   box-sizing:border-box;
   font-family:'Montserrat',sans-serif;
   -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 body{
   background: linear-gradient(135deg,#0f172a,#1e293b);
   color:white;
   min-height:100vh;
 }
+.menu{
+  position:fixed;
+  top:15px;
+  right:15px;
+  font-size:28px;
+  cursor:pointer;
+  z-index:10;
+}
+.config{
+  display:none;
+  position:fixed;
+  top:60px;
+  right:15px;
+  background:#111827;
+  padding:15px;
+  border-radius:10px;
+}
 #welcome{
+  position:relative;
   height:100vh;
   display:flex;
   flex-direction:column;
@@ -27,14 +46,23 @@ body{
   text-align:center;
   animation: fadeIn 1s;
 }
-#welcome.exit{
-  animation: fadeOut 0.6s forwards;
+#welcome::before{
+  content:"";
+  position:absolute;
+  width:200px;
+  height:200px;
+  background:#38bdf8;
+  border-radius:50%;
+  filter:blur(120px);
+  opacity:0.4;
+  pointer-events:none;
 }
-#welcome h1{font-size:3rem;}
-#welcome p{margin-top:15px;font-size:1.4rem;opacity:0.8;}
+#welcome.exit{ animation: fadeOut 0.6s forwards; }
+#welcome h1{font-size:3.5rem;}
+#welcome p{margin-top:15px;font-size:1.5rem;opacity:0.85;}
 #welcome button{
-  margin-top:30px;
-  padding:15px 40px;
+  margin-top:35px;
+  padding:15px 45px;
   border:none;
   border-radius:30px;
   font-size:1.1rem;
@@ -49,13 +77,13 @@ body{
 @keyframes fadeOut{
   to{opacity:0;transform:scale(1.1);}
 }
-#opciones{
+#opciones,#formal,#grammarMenu,#verbToBe{
   display:none;
   padding:40px;
   text-align:center;
   animation: fadeIn 0.5s;
 }
-.card{
+.card,.level{
   background:#1f2933;
   margin:20px auto;
   padding:25px;
@@ -64,34 +92,32 @@ body{
   cursor:pointer;
   transition:0.3s;
 }
-.card:hover{
+.card:hover,.level:hover{
   transform:scale(1.05);
   background:#38bdf8;
   color:#0f172a;
 }
-#formal{
-  display:none;
-  padding:20px;
-  animation: fadeIn 0.5s;
-}
-.level{
-  background:#1f2933;
-  margin:15px 0;
-  padding:20px;
-  border-radius:15px;
-  cursor:pointer;
-}
 .back{
-  margin-top:20px;
+  margin-top:30px;
   background:#38bdf8;
   color:#000;
   border:none;
   padding:10px 25px;
   border-radius:20px;
 }
+input{
+  padding:10px;
+  border-radius:10px;
+  border:none;
+  margin-top:10px;
+  width:200px;
+}
 </style>
 </head>
 <body>
+
+<div class="menu" onclick="toggleConfig()">☰</div>
+<div class="config" id="config">🌍 Configuración (próximamente)</div>
 
 <div id="welcome">
   <h1>SpeakUp</h1>
@@ -108,10 +134,37 @@ body{
 
 <div id="formal">
   <h2>Inglés Formal</h2>
-  <div class="level">Principiante (Próximamente)</div>
+  <div class="level" onclick="openGrammarMenu()">Principiante</div>
   <div class="level">Intermedio (Próximamente)</div>
   <div class="level">Profesional (Próximamente)</div>
   <button class="back" onclick="goBack()">Volver</button>
+</div>
+
+<!-- MENÚ DE GRAMÁTICA -->
+<div id="grammarMenu">
+  <h2>Gramática - Principiante</h2>
+  <div class="level" onclick="openVerbToBe()">Verb to be</div>
+  <div class="level">Greetings (Próximamente)</div>
+  <div class="level">Present Simple (Próximamente)</div>
+  <div class="level">Pronunciation (Próximamente)</div>
+  <button class="back" onclick="backToFormal()">Volver</button>
+</div>
+
+<!-- LECCIÓN REAL -->
+<div id="verbToBe">
+  <h2>Verb to be</h2>
+  <p style="margin-top:15px;">
+    Usamos <b>am</b> con I, <b>is</b> con he/she/it, y <b>are</b> con you/we/they.
+  </p>
+
+  <p style="margin-top:20px;">Completa la frase:</p>
+  <p><b>I ___ a student.</b></p>
+  <input type="text" id="answer">
+  <br>
+  <button onclick="checkAnswer()">Comprobar</button>
+  <p id="feedback" style="margin-top:15px;"></p>
+
+  <button class="back" onclick="backToGrammarMenu()">Volver</button>
 </div>
 
 <script>
@@ -124,14 +177,40 @@ function enterApp(){
   },600);
 }
 function openFormal(){
-  document.getElementById("opciones").style.display="none";
-  document.getElementById("formal").style.display="block";
+  opciones.style.display="none";
+  formal.style.display="block";
 }
 function goBack(){
-  document.getElementById("formal").style.display="none";
-  document.getElementById("opciones").style.display="block";
+  formal.style.display="none";
+  opciones.style.display="block";
+}
+function openGrammarMenu(){
+  formal.style.display="none";
+  grammarMenu.style.display="block";
+}
+function backToFormal(){
+  grammarMenu.style.display="none";
+  formal.style.display="block";
+}
+function openVerbToBe(){
+  grammarMenu.style.display="none";
+  verbToBe.style.display="block";
+}
+function backToGrammarMenu(){
+  verbToBe.style.display="none";
+  grammarMenu.style.display="block";
+}
+function toggleConfig(){
+  config.style.display = config.style.display==="block"?"none":"block";
+}
+function checkAnswer(){
+  let val = document.getElementById("answer").value.toLowerCase().trim();
+  if(val==="am"){
+    feedback.innerText = "Muy bien. 'I am a student' es correcto.";
+  }else{
+    feedback.innerText = "La forma correcta es: I am a student.";
+  }
 }
 </script>
-
 </body>
 </html>
