@@ -12,32 +12,13 @@
   box-sizing:border-box;
   font-family:'Montserrat',sans-serif;
   -webkit-tap-highlight-color: transparent;
-  user-select: none;
 }
 body{
   background: linear-gradient(135deg,#0f172a,#1e293b);
   color:white;
   min-height:100vh;
 }
-.menu{
-  position:fixed;
-  top:15px;
-  right:15px;
-  font-size:28px;
-  cursor:pointer;
-  z-index:10;
-}
-.config{
-  display:none;
-  position:fixed;
-  top:60px;
-  right:15px;
-  background:#111827;
-  padding:15px;
-  border-radius:10px;
-}
 #welcome{
-  position:relative;
   height:100vh;
   display:flex;
   flex-direction:column;
@@ -46,23 +27,14 @@ body{
   text-align:center;
   animation: fadeIn 1s;
 }
-#welcome::before{
-  content:"";
-  position:absolute;
-  width:200px;
-  height:200px;
-  background:#38bdf8;
-  border-radius:50%;
-  filter:blur(120px);
-  opacity:0.4;
-  pointer-events:none;
+#welcome.exit{
+  animation: fadeOut 0.6s forwards;
 }
-#welcome.exit{ animation: fadeOut 0.6s forwards; }
-#welcome h1{font-size:3.5rem;}
-#welcome p{margin-top:15px;font-size:1.5rem;opacity:0.85;}
+#welcome h1{font-size:3rem;}
+#welcome p{margin-top:15px;font-size:1.4rem;opacity:0.8;}
 #welcome button{
-  margin-top:35px;
-  padding:15px 45px;
+  margin-top:30px;
+  padding:15px 40px;
   border:none;
   border-radius:30px;
   font-size:1.1rem;
@@ -77,13 +49,13 @@ body{
 @keyframes fadeOut{
   to{opacity:0;transform:scale(1.1);}
 }
-#opciones,#formal,#grammarMenu,#verbToBe{
+#opciones{
   display:none;
   padding:40px;
   text-align:center;
   animation: fadeIn 0.5s;
 }
-.card,.level{
+.card{
   background:#1f2933;
   margin:20px auto;
   padding:25px;
@@ -92,47 +64,39 @@ body{
   cursor:pointer;
   transition:0.3s;
 }
-.card:hover,.level:hover{
+.card:hover{
   transform:scale(1.05);
   background:#38bdf8;
   color:#0f172a;
 }
+#formal{
+  display:none;
+  padding:20px;
+  animation: fadeIn 0.5s;
+}
+.level{
+  background:#1f2933;
+  margin:15px 0;
+  padding:20px;
+  border-radius:15px;
+  cursor:pointer;
+}
 .back{
-  margin-top:30px;
+  margin-top:20px;
   background:#38bdf8;
   color:#000;
   border:none;
   padding:10px 25px;
   border-radius:20px;
 }
-input{
-  padding:10px;
-  border-radius:10px;
-  border:none;
-  margin-top:10px;
-  width:200px;
-}
 </style>
 </head>
 <body>
 
-<div class="menu" onclick="toggleConfig()">☰</div>
-<div class="config" id="config">🌍 Configuración (próximamente)</div>
-
 <div id="welcome">
-  <h1 style="margin-bottom:20px;">SpeakUp</h1>
-  <p style="margin-top:10px; font-size:1.7rem;">Habla. Exprésate. Mejora tu inglés.</p>
-
-  <!-- Login Google -->
-  <button class="btn-google" onclick="loginGoogle()" style="margin-top:20px; display:flex; align-items:center; justify-content:center;">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="G" style="width:20px; height:20px; margin-right:10px;">
-    Entrar con Google
-  </button>
-
-  <!-- Invitado -->
-  <button class="btn-invite" onclick="enterApp()" style="margin-top:10px;">Entrar como invitado</button>
-
-  <p id="user" style="margin-top:15px;"></p>
+  <h1>SpeakUp</h1>
+  <p>Habla. Exprésate. Mejora tu inglés.</p>
+  <button onclick="enterApp()">Entrar</button>
 </div>
 
 <div id="opciones">
@@ -144,37 +108,10 @@ input{
 
 <div id="formal">
   <h2>Inglés Formal</h2>
-  <div class="level" onclick="openGrammarMenu()">Principiante</div>
+  <div class="level">Principiante (Próximamente)</div>
   <div class="level">Intermedio (Próximamente)</div>
   <div class="level">Profesional (Próximamente)</div>
   <button class="back" onclick="goBack()">Volver</button>
-</div>
-
-<!-- MENÚ DE GRAMÁTICA -->
-<div id="grammarMenu">
-  <h2>Gramática - Principiante</h2>
-  <div class="level" onclick="openVerbToBe()">Verb to be</div>
-  <div class="level">Greetings (Próximamente)</div>
-  <div class="level">Present Simple (Próximamente)</div>
-  <div class="level">Pronunciation (Próximamente)</div>
-  <button class="back" onclick="backToFormal()">Volver</button>
-</div>
-
-<!-- LECCIÓN REAL -->
-<div id="verbToBe">
-  <h2>Verb to be</h2>
-  <p style="margin-top:15px;">
-    Usamos <b>am</b> con I, <b>is</b> con he/she/it, y <b>are</b> con you/we/they.
-  </p>
-
-  <p style="margin-top:20px;">Completa la frase:</p>
-  <p><b>I ___ a student.</b></p>
-  <input type="text" id="answer">
-  <br>
-  <button onclick="checkAnswer()">Comprobar</button>
-  <p id="feedback" style="margin-top:15px;"></p>
-
-  <button class="back" onclick="backToGrammarMenu()">Volver</button>
 </div>
 
 <script>
@@ -187,86 +124,14 @@ function enterApp(){
   },600);
 }
 function openFormal(){
-  opciones.style.display="none";
-  formal.style.display="block";
+  document.getElementById("opciones").style.display="none";
+  document.getElementById("formal").style.display="block";
 }
 function goBack(){
-  formal.style.display="none";
-  opciones.style.display="block";
+  document.getElementById("formal").style.display="none";
+  document.getElementById("opciones").style.display="block";
 }
-function openGrammarMenu(){
-  formal.style.display="none";
-  grammarMenu.style.display="block";
-}
-function backToFormal(){
-  grammarMenu.style.display="none";
-  formal.style.display="block";
-}
-function openVerbToBe(){
-  grammarMenu.style.display="none";
-  verbToBe.style.display="block";
-}
-function backToGrammarMenu(){
-  verbToBe.style.display="none";
-  grammarMenu.style.display="block";
-}
-function toggleConfig(){
-  config.style.display = config.style.display==="block"?"none":"block";
-}
-function checkAnswer(){
-  let val = document.getElementById("answer").value.toLowerCase().trim();
-  if(val==="am"){
-    feedback.innerText = "Muy bien. 'I am a student' es correcto.";
-  }else{
-    feedback.innerText = "La forma correcta es: I am a student.";
-  }
-}
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyA01VrRUADWR0W8eHWYM4kISV--VmQIZGI",
-  authDomain: "login-659b3.firebaseapp.com",
-  projectId: "login-659b3",
-  storageBucket: "login-659b3.firebasestorage.app",
-  messagingSenderId: "824508387635",
-  appId: "1:824508387635:web:5930c6e63b4c29c57bee46",
-  measurementId: "G-V80M744R6P"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-<script>
-  // 🔑 Reemplaza con tu configuración de Firebase
-  const firebaseConfig = {
-    apiKey: "TU_API_KEY",
-    authDomain: "TU_DOMINIO.firebaseapp.com",
-    projectId: "TU_ID",
-  };
-
-  // Inicializa Firebase
-  const app = firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const provider = new firebase.auth.GoogleAuthProvider();
-
-  // Función para login Google
-  function loginGoogle(){
-    auth.signInWithPopup(provider)
-      .then(result => {
-        // Muestra nombre del usuario
-        document.getElementById("user").innerText = "Hola, " + result.user.displayName;
-        // Opcional: entrar automáticamente al menú
-        enterApp();
-      })
-      .catch(error => console.error("Error login Google:", error));
-  }
 </script>
-</script>
+
 </body>
 </html>
