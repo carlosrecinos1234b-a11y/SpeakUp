@@ -19,6 +19,7 @@ body{
   animation: gradientBG 15s ease infinite;
   color:white;
   min-height:100vh;
+  position: relative;
 }
 @keyframes gradientBG{
   0%{background-position:0% 50%;}
@@ -107,16 +108,6 @@ body{
   background:#38bdf8;
   color:#0f172a;
 }
-.info-box{
-  display:none;
-  background:#374151;
-  margin-top:10px;
-  padding:15px;
-  border-radius:15px;
-  max-width:300px;
-  text-align:center;
-  transition:0.3s;
-}
 .back{
   margin-top:20px;
   background:#38bdf8;
@@ -125,6 +116,47 @@ body{
   padding:10px 25px;
   border-radius:20px;
 }
+
+/* Menú de configuración (3 rayitas) */
+.menu-icon{
+  position: fixed;
+  top:20px;
+  right:20px;
+  width:35px;
+  height:30px;
+  cursor:pointer;
+  z-index:1000;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.menu-icon div{
+  height:5px;
+  background:white;
+  border-radius:5px;
+  transition:0.3s;
+}
+#confi{
+  position: fixed;
+  top:0;
+  right:0;
+  width:0;
+  height:100%;
+  background:#1f2933;
+  overflow-x:hidden;
+  transition:0.5s;
+  padding-top:60px;
+  text-align:center;
+}
+#confi.open{
+  width:300px;
+}
+
+#confi h2, #confi p{
+  color:white;
+  margin:20px;
+}
+
 @keyframes fadeIn{
   from{opacity:0;transform:scale(0.9);}
   to{opacity:1;transform:scale(1);}
@@ -135,6 +167,13 @@ body{
 </style>
 </head>
 <body>
+
+<!-- Menú de configuración -->
+<div class="menu-icon" onclick="toggleConfi()">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
 
 <!-- Bienvenida -->
 <div id="welcome">
@@ -148,33 +187,24 @@ body{
 <div id="opciones">
   <h2>Elige una opción</h2>
   <div class="card" onclick="openFormal()">Inglés Formal</div>
-  <div class="card" onclick="showInfo('informal')">Inglés Informal</div>
-  <div class="card" onclick="showInfo('tutor')">Tutor con IA</div>
-  <div class="card" onclick="openConfi()">Configuración</div>
-  <div id="informal" class="info-box">Esta opción estará disponible próximamente.</div>
-  <div id="tutor" class="info-box">Esta opción estará disponible próximamente.</div>
+  <div class="card">Inglés Informal</div>
+  <div class="card">Tutor con IA</div>
 </div>
 
 <!-- Niveles de Inglés Formal -->
 <div id="formal">
   <h2>Inglés Formal</h2>
-  <div class="level" onclick="showInfo('Principiante')">Principiante</div>
-  <div class="level" onclick="showInfo('Intermedio')">Intermedio</div>
-  <div class="level" onclick="showInfo('Profesional')">Profesional</div>
-
-  <div id="Principiante" class="info-box">Nivel principiante: Aprende lo básico y mejora tu vocabulario.</div>
-  <div id="Intermedio" class="info-box">Nivel intermedio próximamente.</div>
-  <div id="Profesional" class="info-box">Nivel profesional próximamente.</div>
-
+  <div class="level">Principiante</div>
+  <div class="level">Intermedio</div>
+  <div class="level">Profesional</div>
   <button class="back" onclick="goBack()">Volver</button>
 </div>
 
-<!-- Sección de Configuración -->
+<!-- Panel de Configuración -->
 <div id="confi">
   <h2>Configuración</h2>
-  <p>Aquí podrás ajustar tus preferencias y configuraciones de la app.</p>
-  <p>Opciones futuras: cambiar idioma, tema oscuro/claro, notificaciones, etc.</p>
-  <button class="back" onclick="goBackFromConfi()">Volver</button>
+  <p>Ajusta tus preferencias aquí.</p>
+  <p>Opciones futuras: idioma, tema, notificaciones...</p>
 </div>
 
 <script>
@@ -195,23 +225,10 @@ function goBack(){
   document.getElementById("opciones").style.display="block";
 }
 
-// Mostrar info de opciones o niveles
-function showInfo(id){
-  document.querySelectorAll('.info-box').forEach(el => el.style.display = 'none');
-  const box = document.getElementById(id);
-  if(box) box.style.display = 'block';
-}
-
-// Abrir sección de configuración
-function openConfi(){
-  document.getElementById("opciones").style.display="none";
-  document.getElementById("confi").style.display="block";
-}
-
-// Volver desde configuración
-function goBackFromConfi(){
-  document.getElementById("confi").style.display="none";
-  document.getElementById("opciones").style.display="block";
+// Menú de configuración
+function toggleConfi(){
+  const c = document.getElementById("confi");
+  c.classList.toggle("open");
 }
 </script>
 
