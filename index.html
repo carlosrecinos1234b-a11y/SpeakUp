@@ -139,6 +139,13 @@ body{
   display:flex;
   flex-direction:column;
   justify-content:space-between;
+  opacity:0;
+  transform: translateX(50px);
+  transition:0.6s;
+}
+.menu-icon.show{
+  opacity:1;
+  transform: translateX(0);
 }
 .menu-icon div{
   height:3px;
@@ -146,11 +153,12 @@ body{
   border-radius:3px;
   transition:0.3s;
 }
+
 #confi{
   position: fixed;
   top:0;
-  right:0;
-  width:0;
+  right:-300px; /* Fuera de pantalla al inicio */
+  width:300px;
   height:100%;
   background:#1f2933;
   overflow-x:hidden;
@@ -159,7 +167,7 @@ body{
   text-align:center;
 }
 #confi.open{
-  width:300px;
+  right:0; /* Se desplaza hacia la pantalla */
 }
 #confi h2, #confi p{
   color:white;
@@ -178,7 +186,7 @@ body{
 <body>
 
 <!-- Menú de configuración -->
-<div class="menu-icon" onclick="toggleConfi()">
+<div class="menu-icon" id="menu" onclick="toggleConfi()">
   <div></div>
   <div></div>
   <div></div>
@@ -230,8 +238,13 @@ function enterApp(){
   setTimeout(()=>{
     w.style.display="none";
     document.getElementById("opciones").style.display="block";
+
+    // Mostrar las 3 rayitas con animación
+    const menu = document.getElementById("menu");
+    menu.classList.add("show");
   },600);
 }
+
 function openFormal(){
   document.getElementById("opciones").style.display="none";
   document.getElementById("formal").style.display="block";
