@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SpeakUp</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
 <style>
@@ -30,26 +30,15 @@ body{
 #welcome.exit{
   animation: fadeOut 0.6s forwards;
 }
-#welcome h1{font-size:3rem;}
-#welcome p{margin-top:15px;font-size:1.4rem;opacity:0.8;}
-#welcome button{
-  margin-top:30px;
-  padding:15px 40px;
-  border:none;
-  border-radius:30px;
-  font-size:1.1rem;
-  cursor:pointer;
-  background:#38bdf8;
-  color:#0f172a;
+#welcome h1{
+  font-size:3rem;
 }
-@keyframes fadeIn{
-  from{opacity:0;transform:scale(0.9);}
-  to{opacity:1;transform:scale(1);}
+#welcome p{
+  margin-top:15px;
+  font-size:1.4rem;
+  opacity:0.8;
 }
-@keyframes fadeOut{
-  to{opacity:0;transform:scale(1.1);}
-}
-#opciones{
+#opciones, #formal{
   display:none;
   padding:40px;
   text-align:center;
@@ -69,17 +58,28 @@ body{
   background:#38bdf8;
   color:#0f172a;
 }
-#formal{
-  display:none;
-  padding:20px;
-  animation: fadeIn 0.5s;
-}
 .level{
   background:#1f2933;
   margin:15px 0;
   padding:20px;
   border-radius:15px;
   cursor:pointer;
+  transition:0.3s;
+}
+.level:hover{
+  transform:scale(1.05);
+  background:#38bdf8;
+  color:#0f172a;
+}
+.info-box{
+  display:none;
+  background:#374151;
+  margin-top:10px;
+  padding:15px;
+  border-radius:15px;
+  max-width:300px;
+  text-align:center;
+  transition:0.3s;
 }
 .back{
   margin-top:20px;
@@ -89,11 +89,19 @@ body{
   padding:10px 25px;
   border-radius:20px;
 }
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(0.9);}
+  to{opacity:1;transform:scale(1);}
+}
+@keyframes fadeOut{
+  to{opacity:0;transform:scale(1.1);}
+}
 </style>
 </head>
 <body>
 
 <div id="welcome">
+  <p class="subtitulo">Bienvenido a</p>
   <h1>SpeakUp</h1>
   <p>Habla. Exprésate. Mejora tu inglés.</p>
   <button onclick="enterApp()">Entrar</button>
@@ -102,15 +110,20 @@ body{
 <div id="opciones">
   <h2>Elige una opción</h2>
   <div class="card" onclick="openFormal()">Inglés Formal</div>
-  <div class="card">Inglés Informal (Próximamente)</div>
-  <div class="card">Tutor con IA (Próximamente)</div>
+  <div class="card" onclick="showInfo('informal')">Inglés Informal</div>
+  <div class="card" onclick="showInfo('tutor')">Tutor con IA</div>
+  <div id="informal" class="info-box">Esta opción estará disponible próximamente para aprender inglés más relajado.</div>
+  <div id="tutor" class="info-box">Esta opción estará disponible próximamente con ayuda de IA.</div>
 </div>
 
 <div id="formal">
   <h2>Inglés Formal</h2>
-  <div class="level">Principiante (Próximamente)</div>
-  <div class="level">Intermedio (Próximamente)</div>
-  <div class="level">Profesional (Próximamente)</div>
+  <div class="level" onclick="selectLevel('Principiante')">Principiante</div>
+  <div class="level" onclick="showInfo('Intermedio')">Intermedio</div>
+  <div class="level" onclick="showInfo('Profesional')">Profesional</div>
+  <div id="Intermedio" class="info-box">Nivel intermedio próximamente.</div>
+  <div id="Profesional" class="info-box">Nivel profesional próximamente.</div>
+  <div id="Principiante" class="info-box">Nivel principiante: Aprende lo básico y mejora tu vocabulario.</div>
   <button class="back" onclick="goBack()">Volver</button>
 </div>
 
@@ -130,6 +143,21 @@ function openFormal(){
 function goBack(){
   document.getElementById("formal").style.display="none";
   document.getElementById("opciones").style.display="block";
+}
+
+// Función para mostrar info de cards o niveles
+function showInfo(id){
+  // ocultar todas las info-box
+  document.querySelectorAll('.info-box').forEach(el => el.style.display = 'none');
+  // mostrar la info-box correspondiente
+  const box = document.getElementById(id);
+  if(box) box.style.display = 'block';
+}
+
+// Función para seleccionar nivel principiante
+function selectLevel(level){
+  alert("Has seleccionado el nivel: " + level);
+  showInfo(level); // muestra la info correspondiente
 }
 </script>
 
