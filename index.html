@@ -67,6 +67,7 @@ body{
   transform:translateY(-3px);
 }
 
+/* Opciones y niveles */
 #opciones, #formal{
   display:none;
   padding:40px;
@@ -121,7 +122,7 @@ body{
   border-radius:20px;
 }
 
-/* Menú deslizable desde la derecha */
+/* Menú deslizable moderno */
 .menu-icon{
   position: fixed;
   top:20px;
@@ -148,21 +149,23 @@ body{
   transition:0.3s;
 }
 
+/* Menú con blur y semitransparencia */
 #confi{
   position: fixed;
   top:0;
-  right:-300px;
-  width:300px;
+  right:-320px; /* fuera de pantalla */
+  width:320px;
   height:100%;
-  background:#1f2933;
+  background: rgba(31, 41, 51, 0.85); /* semitransparente */
+  backdrop-filter: blur(10px); /* blur moderno */
   overflow-x:hidden;
-  transition:0.5s;
+  transition: right 0.5s ease;
   padding-top:60px;
   text-align:center;
   z-index:1000;
 }
 #confi.open{
-  right:0;
+  right:0; /* se desliza al tocar las 3 rayitas */
 }
 #confi h2, #confi p{
   color:white;
@@ -226,7 +229,7 @@ function enterApp(){
     w.style.display="none";
     document.getElementById("opciones").style.display="block";
 
-    // Mostrar las 3 rayitas
+    // Mostrar las 3 rayitas con animación
     document.getElementById("menu").classList.add("show");
   },600);
 }
@@ -239,13 +242,11 @@ function goBack(){
   document.getElementById("formal").style.display="none";
   document.getElementById("opciones").style.display="block";
 }
-
 function showInfo(id){
   document.querySelectorAll('.info-box').forEach(el => el.style.display='none');
   const box = document.getElementById(id);
   if(box) box.style.display='block';
 }
-
 function toggleConfi(){
   const c = document.getElementById("confi");
   c.classList.toggle("open");
