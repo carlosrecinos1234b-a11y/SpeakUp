@@ -72,7 +72,7 @@ body{
   box-shadow:0 8px 20px rgba(0,0,0,0.5);
 }
 
-#opciones, #formal{
+#opciones, #formal, #confi{
   display:none;
   padding:40px;
   text-align:center;
@@ -136,6 +136,7 @@ body{
 </head>
 <body>
 
+<!-- Bienvenida -->
 <div id="welcome">
   <p class="subtitulo">Bienvenido a</p>
   <h1>SpeakUp</h1>
@@ -143,15 +144,18 @@ body{
   <button onclick="enterApp()">Entrar</button>
 </div>
 
+<!-- Opciones principales -->
 <div id="opciones">
   <h2>Elige una opción</h2>
   <div class="card" onclick="openFormal()">Inglés Formal</div>
   <div class="card" onclick="showInfo('informal')">Inglés Informal</div>
   <div class="card" onclick="showInfo('tutor')">Tutor con IA</div>
+  <div class="card" onclick="openConfi()">Configuración</div>
   <div id="informal" class="info-box">Esta opción estará disponible próximamente.</div>
   <div id="tutor" class="info-box">Esta opción estará disponible próximamente.</div>
 </div>
 
+<!-- Niveles de Inglés Formal -->
 <div id="formal">
   <h2>Inglés Formal</h2>
   <div class="level" onclick="showInfo('Principiante')">Principiante</div>
@@ -163,6 +167,14 @@ body{
   <div id="Profesional" class="info-box">Nivel profesional próximamente.</div>
 
   <button class="back" onclick="goBack()">Volver</button>
+</div>
+
+<!-- Sección de Configuración -->
+<div id="confi">
+  <h2>Configuración</h2>
+  <p>Aquí podrás ajustar tus preferencias y configuraciones de la app.</p>
+  <p>Opciones futuras: cambiar idioma, tema oscuro/claro, notificaciones, etc.</p>
+  <button class="back" onclick="goBackFromConfi()">Volver</button>
 </div>
 
 <script>
@@ -183,13 +195,23 @@ function goBack(){
   document.getElementById("opciones").style.display="block";
 }
 
-// Función para mostrar info de cards o niveles
+// Mostrar info de opciones o niveles
 function showInfo(id){
-  // ocultar todas las info-box
   document.querySelectorAll('.info-box').forEach(el => el.style.display = 'none');
-  // mostrar la info-box correspondiente
   const box = document.getElementById(id);
   if(box) box.style.display = 'block';
+}
+
+// Abrir sección de configuración
+function openConfi(){
+  document.getElementById("opciones").style.display="none";
+  document.getElementById("confi").style.display="block";
+}
+
+// Volver desde configuración
+function goBackFromConfi(){
+  document.getElementById("confi").style.display="none";
+  document.getElementById("opciones").style.display="block";
 }
 </script>
 
