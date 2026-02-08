@@ -149,7 +149,7 @@ body{
   transition:0.3s;
 }
 
-/* Menú con blur y semitransparencia */
+/* Menú con blur y semitransparencia + subopciones animadas */
 #confi{
   position: fixed;
   top:0;
@@ -170,6 +170,27 @@ body{
 #confi h2, #confi p{
   color:white;
   margin:20px 0;
+}
+.confi-item{
+  background: #374151;
+  margin:10px 20px;
+  padding:12px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  cursor:pointer;
+  opacity:0;
+  transform: translateX(20px);
+  transition: all 0.4s ease;
+}
+.confi-item.show{
+  opacity:1;
+  transform: translateX(0);
+}
+.confi-item span{
+  margin-left:10px;
+  font-weight:600;
 }
 </style>
 </head>
@@ -217,7 +238,9 @@ body{
 <!-- Panel de configuración -->
 <div id="confi">
   <h2>Configuración</h2>
-  <p>Aquí podrás ajustar tus preferencias y configuraciones de la app.</p>
+  <div class="confi-item" id="item1"><img src="https://img.icons8.com/ios-filled/24/ffffff/settings.png"/> <span>General</span></div>
+  <div class="confi-item" id="item2"><img src="https://img.icons8.com/ios-filled/24/ffffff/light-on.png"/> <span>Tema</span></div>
+  <div class="confi-item" id="item3"><img src="https://img.icons8.com/ios-filled/24/ffffff/notification.png"/> <span>Notificaciones</span></div>
   <p>Opciones futuras: cambiar idioma, tema oscuro/claro, notificaciones, etc.</p>
 </div>
 
@@ -247,9 +270,21 @@ function showInfo(id){
   const box = document.getElementById(id);
   if(box) box.style.display='block';
 }
+
+// Menú deslizable
 function toggleConfi(){
   const c = document.getElementById("confi");
   c.classList.toggle("open");
+
+  // Animar subopciones
+  const items = document.querySelectorAll('.confi-item');
+  if(c.classList.contains("open")){
+    items.forEach((el,i)=>{
+      setTimeout(()=>el.classList.add('show'), i*100);
+    });
+  } else {
+    items.forEach(el=>el.classList.remove('show'));
+  }
 }
 </script>
 
