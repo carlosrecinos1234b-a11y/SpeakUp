@@ -15,18 +15,9 @@
 }
 body{
   background: linear-gradient(135deg,#0f172a,#1e293b);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
   color:white;
   min-height:100vh;
-  position: relative;
 }
-@keyframes gradientBG{
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
-}
-
 #welcome{
   height:100vh;
   display:flex;
@@ -39,41 +30,26 @@ body{
 #welcome.exit{
   animation: fadeOut 0.6s forwards;
 }
-#welcome h1{
-  font-size:4rem;
-  letter-spacing:2px;
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
-}
-#welcome p.subtitulo{
-  font-size:2rem;
-  margin-bottom:5px;
-  opacity:0.9;
-  text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
-}
-#welcome p.lema{
-  margin-top:10px;
-  font-size:1.4rem;
-  opacity:0.8;
-}
+#welcome h1{font-size:3rem;}
+#welcome p{margin-top:15px;font-size:1.4rem;opacity:0.8;}
 #welcome button{
   margin-top:30px;
-  padding:15px 45px;
+  padding:15px 40px;
   border:none;
   border-radius:30px;
-  font-size:1.2rem;
+  font-size:1.1rem;
   cursor:pointer;
-  background:linear-gradient(135deg,#1e3a8a,#374785);
-  color:white;
-  font-weight:600;
-  transition:0.3s;
-  box-shadow:0 5px 15px rgba(0,0,0,0.3);
+  background:#38bdf8;
+  color:#0f172a;
 }
-#welcome button:hover{
-  transform:translateY(-3px);
-  box-shadow:0 8px 20px rgba(0,0,0,0.5);
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(0.9);}
+  to{opacity:1;transform:scale(1);}
 }
-
-#opciones, #formal, #confi{
+@keyframes fadeOut{
+  to{opacity:0;transform:scale(1.1);}
+}
+#opciones{
   display:none;
   padding:40px;
   text-align:center;
@@ -87,12 +63,16 @@ body{
   max-width:300px;
   cursor:pointer;
   transition:0.3s;
-  font-weight:600;
 }
 .card:hover{
   transform:scale(1.05);
   background:#38bdf8;
   color:#0f172a;
+}
+#formal{
+  display:none;
+  padding:20px;
+  animation: fadeIn 0.5s;
 }
 .level{
   background:#1f2933;
@@ -100,23 +80,6 @@ body{
   padding:20px;
   border-radius:15px;
   cursor:pointer;
-  transition:0.3s;
-  font-weight:600;
-}
-.level:hover{
-  transform:scale(1.05);
-  background:#38bdf8;
-  color:#0f172a;
-}
-.info-box{
-  display:none;
-  background:#374151;
-  margin-top:10px;
-  padding:15px;
-  border-radius:15px;
-  max-width:300px;
-  text-align:center;
-  transition:0.3s;
 }
 .back{
   margin-top:20px;
@@ -135,7 +98,7 @@ body{
   width:25px;
   height:20px;
   cursor:pointer;
-  z-index:1000;
+  z-index:1001;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
@@ -164,21 +127,14 @@ body{
   transition:0.5s;
   padding-top:60px;
   text-align:center;
+  z-index:1000;
 }
 #confi.open{
-  right:0; /* se desplaza al tocar */
+  right:0; /* se desliza hacia la pantalla */
 }
 #confi h2, #confi p{
   color:white;
   margin:20px;
-}
-
-@keyframes fadeIn{
-  from{opacity:0;transform:scale(0.9);}
-  to{opacity:1;transform:scale(1);}
-}
-@keyframes fadeOut{
-  to{opacity:0;transform:scale(1.1);}
 }
 </style>
 </head>
@@ -191,39 +147,28 @@ body{
   <div></div>
 </div>
 
-<!-- Bienvenida -->
 <div id="welcome">
-  <p class="subtitulo">Bienvenido a</p>
   <h1>SpeakUp</h1>
-  <p class="lema">Habla, Exprésate, Mejora tu inglés.</p>
+  <p>Habla. Exprésate. Mejora tu inglés.</p>
   <button onclick="enterApp()">Entrar</button>
 </div>
 
-<!-- Opciones principales -->
 <div id="opciones">
   <h2>Elige una opción</h2>
   <div class="card" onclick="openFormal()">Inglés Formal</div>
-  <div class="card" onclick="showInfo('informal')">Inglés Informal</div>
-  <div class="card" onclick="showInfo('tutor')">Tutor con IA</div>
-  <div id="informal" class="info-box">Esta opción estará disponible próximamente.</div>
-  <div id="tutor" class="info-box">Esta opción estará disponible próximamente.</div>
+  <div class="card">Inglés Informal (Próximamente)</div>
+  <div class="card">Tutor con IA (Próximamente)</div>
 </div>
 
-<!-- Niveles de Inglés Formal -->
 <div id="formal">
   <h2>Inglés Formal</h2>
-  <div class="level" onclick="showInfo('Principiante')">Principiante</div>
-  <div class="level" onclick="showInfo('Intermedio')">Intermedio</div>
-  <div class="level" onclick="showInfo('Profesional')">Profesional</div>
-
-  <div id="Principiante" class="info-box">Nivel principiante: Aprende lo básico y mejora tu vocabulario.</div>
-  <div id="Intermedio" class="info-box">Nivel intermedio próximamente.</div>
-  <div id="Profesional" class="info-box">Nivel profesional próximamente.</div>
-
+  <div class="level">Principiante (Próximamente)</div>
+  <div class="level">Intermedio (Próximamente)</div>
+  <div class="level">Profesional (Próximamente)</div>
   <button class="back" onclick="goBack()">Volver</button>
 </div>
 
-<!-- Panel de Configuración -->
+<!-- Panel de configuración deslizante -->
 <div id="confi">
   <h2>Configuración</h2>
   <p>Aquí podrás ajustar tus preferencias y configuraciones de la app.</p>
@@ -243,7 +188,6 @@ function enterApp(){
     menu.classList.add("show");
   },600);
 }
-
 function openFormal(){
   document.getElementById("opciones").style.display="none";
   document.getElementById("formal").style.display="block";
@@ -251,13 +195,6 @@ function openFormal(){
 function goBack(){
   document.getElementById("formal").style.display="none";
   document.getElementById("opciones").style.display="block";
-}
-
-// Mostrar info de opciones o niveles
-function showInfo(id){
-  document.querySelectorAll('.info-box').forEach(el => el.style.display = 'none');
-  const box = document.getElementById(id);
-  if(box) box.style.display = 'block';
 }
 
 // Menú de configuración
