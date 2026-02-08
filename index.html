@@ -108,6 +108,16 @@ body{
   background:#38bdf8;
   color:#0f172a;
 }
+.info-box{
+  display:none;
+  background:#374151;
+  margin-top:10px;
+  padding:15px;
+  border-radius:15px;
+  max-width:300px;
+  text-align:center;
+  transition:0.3s;
+}
 .back{
   margin-top:20px;
   background:#38bdf8;
@@ -117,13 +127,13 @@ body{
   border-radius:20px;
 }
 
-/* Menú de configuración (3 rayitas) */
+/* Menú de configuración discreto */
 .menu-icon{
   position: fixed;
   top:20px;
   right:20px;
-  width:35px;
-  height:30px;
+  width:25px;
+  height:20px;
   cursor:pointer;
   z-index:1000;
   display:flex;
@@ -131,9 +141,9 @@ body{
   justify-content:space-between;
 }
 .menu-icon div{
-  height:5px;
+  height:3px;
   background:white;
-  border-radius:5px;
+  border-radius:3px;
   transition:0.3s;
 }
 #confi{
@@ -151,7 +161,6 @@ body{
 #confi.open{
   width:300px;
 }
-
 #confi h2, #confi p{
   color:white;
   margin:20px;
@@ -187,24 +196,31 @@ body{
 <div id="opciones">
   <h2>Elige una opción</h2>
   <div class="card" onclick="openFormal()">Inglés Formal</div>
-  <div class="card">Inglés Informal</div>
-  <div class="card">Tutor con IA</div>
+  <div class="card" onclick="showInfo('informal')">Inglés Informal</div>
+  <div class="card" onclick="showInfo('tutor')">Tutor con IA</div>
+  <div id="informal" class="info-box">Esta opción estará disponible próximamente.</div>
+  <div id="tutor" class="info-box">Esta opción estará disponible próximamente.</div>
 </div>
 
 <!-- Niveles de Inglés Formal -->
 <div id="formal">
   <h2>Inglés Formal</h2>
-  <div class="level">Principiante</div>
-  <div class="level">Intermedio</div>
-  <div class="level">Profesional</div>
+  <div class="level" onclick="showInfo('Principiante')">Principiante</div>
+  <div class="level" onclick="showInfo('Intermedio')">Intermedio</div>
+  <div class="level" onclick="showInfo('Profesional')">Profesional</div>
+
+  <div id="Principiante" class="info-box">Nivel principiante: Aprende lo básico y mejora tu vocabulario.</div>
+  <div id="Intermedio" class="info-box">Nivel intermedio próximamente.</div>
+  <div id="Profesional" class="info-box">Nivel profesional próximamente.</div>
+
   <button class="back" onclick="goBack()">Volver</button>
 </div>
 
 <!-- Panel de Configuración -->
 <div id="confi">
   <h2>Configuración</h2>
-  <p>Ajusta tus preferencias aquí.</p>
-  <p>Opciones futuras: idioma, tema, notificaciones...</p>
+  <p>Aquí podrás ajustar tus preferencias y configuraciones de la app.</p>
+  <p>Opciones futuras: cambiar idioma, tema oscuro/claro, notificaciones, etc.</p>
 </div>
 
 <script>
@@ -223,6 +239,13 @@ function openFormal(){
 function goBack(){
   document.getElementById("formal").style.display="none";
   document.getElementById("opciones").style.display="block";
+}
+
+// Mostrar info de opciones o niveles
+function showInfo(id){
+  document.querySelectorAll('.info-box').forEach(el => el.style.display = 'none');
+  const box = document.getElementById(id);
+  if(box) box.style.display = 'block';
 }
 
 // Menú de configuración
