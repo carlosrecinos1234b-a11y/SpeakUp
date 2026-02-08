@@ -242,29 +242,32 @@ body{
 <div id="confi">
   <h2>Configuración</h2>
 
-  <!-- SVG nítidos -->
+  <!-- Íconos actualizados -->
   <div class="confi-item" id="item1">
+    <!-- Usuario / Perfil -->
     <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 8a4 4 0 100 8 4 4 0 000-8z"/>
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M2 12a10 10 0 1110 10A10 10 0 012 12zm10-8a8 8 0 100 16 8 8 0 000-16z"/>
+      <circle cx="12" cy="8" r="4"/>
+      <path d="M4 20c0-4 8-4 8-4s8 0 8 4v1H4v-1z"/>
     </svg>
-    <span>General</span>
+    <span>Perfil</span>
   </div>
 
   <div class="confi-item" id="item2">
+    <!-- Sol / Luna -->
     <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
       <circle cx="12" cy="12" r="5"/>
       <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
     </svg>
-    <span>Tema</span>
+    <span>Apariencia</span>
   </div>
 
   <div class="confi-item" id="item3">
+    <!-- Campana / Alertas -->
     <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
       <path d="M12 2a7 7 0 00-7 7v5H4l1 2h14l1-2h-1V9a7 7 0 00-7-7z"/>
       <path d="M12 22a2 2 0 002-2H10a2 2 0 002 2z"/>
     </svg>
-    <span>Notificaciones</span>
+    <span>Alertas</span>
   </div>
 
   <p>Opciones futuras: cambiar idioma, tema oscuro/claro, notificaciones, etc.</p>
@@ -277,8 +280,6 @@ function enterApp(){
   setTimeout(()=>{
     w.style.display="none";
     document.getElementById("opciones").style.display="block";
-
-    // Mostrar las 3 rayitas con animación
     document.getElementById("menu").classList.add("show");
   },600);
 }
@@ -297,12 +298,9 @@ function showInfo(id){
   if(box) box.style.display='block';
 }
 
-// Menú deslizable
 function toggleConfi(){
   const c = document.getElementById("confi");
   c.classList.toggle("open");
-
-  // Animar subopciones
   const items = document.querySelectorAll('.confi-item');
   if(c.classList.contains("open")){
     items.forEach((el,i)=>{
